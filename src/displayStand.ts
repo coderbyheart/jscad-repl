@@ -6,7 +6,7 @@ import { baseThicknessMM, screenBaseHeight, stand } from './models/stand'
 const { translate, rotateY, rotateX, rotate, translateZ } = transforms
 const { colorize, hexToRgb } = colors
 
-export const demo = (parameters: { scale: number }) => {
+export const displayStand = () => {
 	return [
 		...colorize(
 			hexToRgb('333333'),

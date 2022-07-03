@@ -1,7 +1,7 @@
-import { demo } from './demo'
+import { displayStand } from './displayStand'
 import { renderModel } from './renderModel'
 
 const containerElement = document.getElementById('jscad')
 
 if (containerElement !== null)
-	renderModel({ containerElement, model: demo({ scale: 1 }) })
+	renderModel({ containerElement, model: displayStand() })
