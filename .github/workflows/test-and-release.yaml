@@ -33,7 +33,7 @@ jobs:
       - name: Build
         env:
           PUBLIC_VERSION: ${{ github.sha }}
-        run: npm run build
+        run: npm run build -- --base=/${{ github.event.repository.name }}/
 
       - uses: actions/upload-artifact@v3
         if: always()
