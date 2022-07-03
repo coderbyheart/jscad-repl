@@ -1,0 +1,66 @@
+{
+  "name": "@coderbyheart/jscad-repl",
+  "version": "0.0.0-development",
+  "description": "Develop 3D models in VS Code using JSCAD.",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build --emptyOutDir",
+    "preview": "vite preview",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderbyheart/jscad-repl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coderbyheart/jscad-repl/issues"
+  },
+  "homepage": "https://github.com/coderbyheart/jscad-repl#readme",
+  "keywords": [
+    "web-app",
+    "vite",
+    "JSCAD"
+  ],
+  "author": "Markus Tacker <m@coderbyheart.com> | https://coderbyheart.com",
+  "license": "MIT",
+  "dependencies": {
+    "@jscad/core": "2.6.1",
+    "@jscad/modeling": "2.9.5",
+    "@jscad/regl-renderer": "2.6.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.3.0"
+  },
+  "devDependencies": {
+    "@nordicsemiconductor/asset-tracker-cloud-code-style": "11.0.97",
+    "eslint-plugin-no-restricted-imports": "0.0.0",
+    "handlebars": "4.7.7",
+    "vite": "2.9.13"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --ext .js,.ts,.jsx"
+    ],
+    "*.{md,json,yaml,yml,html}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
+  },
+  "release": {
+    "branches": [
+      "saga"
+    ],
+    "remoteTags": true,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ]
+  },
+  "prettier": "@nordicsemiconductor/asset-tracker-cloud-code-style/.prettierrc"
+}
