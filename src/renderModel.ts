@@ -25,7 +25,11 @@ export const renderModel = ({
 	const state: Record<string, any> = {}
 
 	// prepare the camera
-	state.camera = Object.assign({}, perspectiveCamera.defaults)
+	state.camera = Object.assign({}, perspectiveCamera.defaults, {
+		//position: [450, 550, 700],
+		position: [450, 550, 700],
+		fov: Math.PI / 32,
+	})
 	perspectiveCamera.setProjection(state.camera, state.camera, { width, height })
 	perspectiveCamera.update(state.camera, state.camera)
 
@@ -44,7 +48,7 @@ export const renderModel = ({
 			show: true,
 		},
 		size: [500, 500],
-		ticks: [25, 5],
+		ticks: [10, 1],
 		color: [0, 0, 1, 1],
 		subColor: [0, 0, 1, 0.5],
 	}

@@ -18,7 +18,7 @@ const screenGapWidth = 9.5
 const screenGapHeight = 10
 export const screenBaseHeight = 250
 const wallThickness = 2
-const baseToHeighRatio = 10 / 40
+const baseToHeighRatio = 10 / 30
 const gapRotation = 0.1
 const gapYShift = -1.5
 
@@ -87,11 +87,11 @@ export const stand = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 				translateY(
 					-2 * hexagonWidth(screenGapHeight * 2),
 					hexagonGrid({
-						cols: 5,
-						rows: 9,
+						cols: 10,
+						rows: 18,
 						height: baseThicknessMM,
-						size: screenGapHeight * 2,
-						wallThickness: wallThickness,
+						size: screenGapHeight,
+						wallThickness: wallThickness / 2,
 					}),
 				),
 			),
