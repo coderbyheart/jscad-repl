@@ -34,10 +34,10 @@
     "react-router-dom": "6.3.0"
   },
   "devDependencies": {
-    "@nordicsemiconductor/asset-tracker-cloud-code-style": "11.0.97",
+    "@nordicsemiconductor/asset-tracker-cloud-code-style": "11.0.99",
     "eslint-plugin-no-restricted-imports": "0.0.0",
     "handlebars": "4.7.7",
-    "vite": "2.9.13"
+    "vite": "2.9.14"
   },
   "lint-staged": {
     "*.ts": [
