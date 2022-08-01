@@ -82,7 +82,7 @@ export const cone = ({
 	)
 
 export const chargerPlate = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
-	const radius = 8
+	const radius = 7.5
 	const size = 46
 	return [
 		subtract(
@@ -108,7 +108,7 @@ export const chargerPlate = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 			cylinder({
 				center: [size / 2 + 3, size / 2 + 3, 0],
 				height: 20,
-				radius: 14,
+				radius: 14.5,
 				segments,
 			}),
 			cylinder({
