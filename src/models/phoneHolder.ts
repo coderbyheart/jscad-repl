@@ -22,7 +22,7 @@ export const phoneHolder = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 	return [
 		union(
 			translateZ(
-				32,
+				31.5,
 				subtract(
 					subtract(
 						subtract(
@@ -69,7 +69,7 @@ export const phoneHolder = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 				),
 			),
 			translateZ(
-				-32,
+				-31.5,
 				subtract(
 					subtract(
 						subtract(
@@ -120,19 +120,19 @@ export const phoneHolder = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 				size: [16, 2, 78],
 			}),
 			cuboid({
-				center: [0, -14, 41],
+				center: [0, -14, 40.5],
 				size: [16, 12, 2],
 			}),
 			cuboid({
-				center: [0, -20, 40],
+				center: [0, -21, 39.5],
 				size: [16, 2, 4],
 			}),
 			cuboid({
-				center: [0, -14, -41],
+				center: [0, -14, -40.5],
 				size: [16, 12, 2],
 			}),
 			cuboid({
-				center: [0, -20, -40],
+				center: [0, -21, -39.5],
 				size: [16, 2, 4],
 			}),
 		),
