@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { chargerPlate } from './models/chargerPlate'
+import { robotBody } from './models/robotWars'
 import { renderModel } from './renderModel'
 
 const containerElement = document.getElementById('jscad')
 
-const model = chargerPlate()
+const model = robotBody()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
