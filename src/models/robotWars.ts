@@ -240,7 +240,7 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 							rotateX(degToRad(-slant), motorPlate()),
 						),
 						translate(
-							[-13 - 44.25, motorSupportWidth / 2, 3],
+							[-13 - 44.25, motorSupportWidth / 2, 2.5],
 							rotateX(
 								degToRad(slant),
 								union(
@@ -255,7 +255,7 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 							),
 						),
 						translate(
-							[-13 - 44.25, width - motorSupportWidth / 2, 3],
+							[-13 - 44.25, width - motorSupportWidth / 2, 2.5],
 							rotateX(
 								degToRad(-slant),
 								union(
