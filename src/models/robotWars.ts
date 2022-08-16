@@ -237,6 +237,26 @@ const frontWheel = () =>
 		}),
 	)
 
+const batteryStraps = (pcbWidth: number, depth = 12, thickness = 3) =>
+	subtract(
+		cuboid({
+			size: [depth + 2 * thickness, pcbWidth + 6 * thickness, thickness],
+			center: [0, 0, thickness / 2],
+		}),
+		cuboid({
+			size: [depth, pcbWidth, thickness],
+			center: [0, 0, thickness / 2],
+		}),
+		cuboid({
+			size: [depth, thickness, thickness],
+			center: [0, pcbWidth / 2 + 1.5 * thickness, thickness / 2],
+		}),
+		cuboid({
+			size: [depth, thickness, thickness],
+			center: [0, -pcbWidth / 2 - 1.5 * thickness, thickness / 2],
+		}),
+	)
+
 export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 	const pcbWidth = 63.5
 	const padding = 15
@@ -404,6 +424,7 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 			translate([-6, 22, 2], cableHolder()),
 			translate([-6, width - 22, 2], rotateZ(degToRad(180), cableHolder())),
 			translate([-length + 20, width / 2, 0], frontWheel()),
+			translate([-length + 20, width / 2, 0], batteryStraps(pcbWidth)),
 		),
 	]
 }
