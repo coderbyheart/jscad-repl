@@ -143,6 +143,30 @@ export const motorSupport = (
 		),
 	)
 
+const zipTieHole = () =>
+	union(
+		cuboid({
+			size: [Math.sqrt(2.5 * 2.5 * 2), 10, 1],
+		}),
+		subtract(
+			translateZ(
+				0.5,
+				rotateY(
+					degToRad(45),
+					cuboid({
+						size: [2.5, 10, 2.5],
+					}),
+				),
+			),
+			translateZ(
+				-1,
+				cuboid({
+					size: [Math.sqrt(2.5 * 2.5 * 2), 10, 1],
+				}),
+			),
+		),
+	)
+
 const rubberStrapHolder = () => {
 	const width = 8.5
 	const depth = 5
@@ -173,6 +197,9 @@ const rubberStrapHolder = () => {
 					center: [0, -1, 0],
 				}),
 				...ridges,
+				// Zip tie holes
+				translateZ(3, zipTieHole()),
+				translateZ(-3, zipTieHole()),
 			),
 		),
 	)
