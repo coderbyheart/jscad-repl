@@ -167,7 +167,7 @@ const zipTieHole = () =>
 		),
 	)
 
-const rubberStrapHolder = () => {
+const cableHolder = () => {
 	const width = 8.5
 	const depth = 5
 	const thickness = 2
@@ -270,6 +270,7 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 							),
 						),
 						// Add connection plates
+						// ... under motor plates
 						cuboid({
 							size: [16, 21, thickness],
 							center: [-10, 10.5, -thickness / 2],
@@ -278,6 +279,7 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 							size: [16, 21, thickness],
 							center: [-10, width - 10.5, -thickness / 2],
 						}),
+						// ... under motor support
 						cuboid({
 							size: [14, motorSupportWidth + 8, thickness],
 							center: [-57, (motorSupportWidth + 8) / 2, -thickness / 2],
@@ -289,6 +291,15 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 								width - (motorSupportWidth + 8) / 2,
 								-thickness / 2,
 							],
+						}),
+						// ... under cable holders
+						cuboid({
+							size: [12, 20, 2],
+							center: [-8.5, 21, -thickness / 2],
+						}),
+						cuboid({
+							size: [12, 20, 2],
+							center: [-8.5, width - 21, -thickness / 2],
 						}),
 					),
 					// Clean parts from motor support protruding under plate
@@ -352,12 +363,15 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 					center: [5, width / 2, 0],
 				}),
 			),
-			// Holders for rubber straps to fasten battery
-			translate([-11 - 44.25, 29, 2], rubberStrapHolder()),
+			// Holders to fasten cables
+			translate([-11 - 44.25, 29, 2], cableHolder()),
 			translate(
 				[-11 - 44.25, width - 29, 2],
-				rotateZ(degToRad(180), rubberStrapHolder()),
+				rotateZ(degToRad(180), cableHolder()),
 			),
+
+			translate([-6, 22, 2], cableHolder()),
+			translate([-6, width - 22, 2], rotateZ(degToRad(180), cableHolder())),
 		),
 	]
 }
