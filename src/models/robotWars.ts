@@ -199,7 +199,7 @@ const cableHolder = () => {
 				...ridges,
 				// Zip tie holes
 				translateZ(3, zipTieHole()),
-				translateZ(-3, zipTieHole()),
+				translateZ(-5, zipTieHole()),
 			),
 		),
 	)
