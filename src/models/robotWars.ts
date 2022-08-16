@@ -21,6 +21,7 @@ import {
 	translateY,
 	translateZ,
 } from '@jscad/modeling/src/operations/transforms'
+import { sphere } from '@jscad/modeling/src/primitives'
 import { degToRad } from '@jscad/modeling/src/utils'
 import { hexagonGrid } from '../utils/hexagon'
 
@@ -205,6 +206,37 @@ const cableHolder = () => {
 	)
 }
 
+const frontWheel = () =>
+	union(
+		cylinder({
+			height: 20,
+			radius: 5,
+			center: [5, 0, 10],
+		}),
+		cuboid({
+			center: [2.5, 0, 10],
+			size: [5, 10, 20],
+		}),
+		rotateX(
+			degToRad(90),
+			intersect(
+				cylinder({
+					height: 10,
+					radius: 20,
+					segments: 20,
+				}),
+				cuboid({
+					size: [40, 40, 40],
+					center: [-20, 20, 0],
+				}),
+			),
+		),
+		sphere({
+			radius: 5,
+			center: [5, 0, 20],
+		}),
+	)
+
 export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 	const pcbWidth = 63.5
 	const padding = 15
@@ -369,9 +401,9 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 				[-11 - 44.25, width - 29, 2],
 				rotateZ(degToRad(180), cableHolder()),
 			),
-
 			translate([-6, 22, 2], cableHolder()),
 			translate([-6, width - 22, 2], rotateZ(degToRad(180), cableHolder())),
+			translate([-length + 20, width / 2, 0], frontWheel()),
 		),
 	]
 }
