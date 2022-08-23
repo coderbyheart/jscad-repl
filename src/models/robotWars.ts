@@ -209,9 +209,9 @@ const cableHolder = () => {
 const frontWheel = () =>
 	union(
 		cylinder({
-			height: 20,
+			height: 25,
 			radius: 5,
-			center: [5, 0, 10],
+			center: [5, 0, 12.5],
 		}),
 		cuboid({
 			center: [2.5, 0, 10],
@@ -233,7 +233,7 @@ const frontWheel = () =>
 		),
 		sphere({
 			radius: 5,
-			center: [5, 0, 20],
+			center: [5, 0, 25],
 		}),
 	)
 
