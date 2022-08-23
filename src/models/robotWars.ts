@@ -191,7 +191,8 @@ const cableHolder = () => {
 		union(
 			subtract(
 				cuboid({
-					size: [width, depth, 15],
+					size: [width, depth, 15 + 2],
+					center: [0, 0, -1],
 				}),
 				cuboid({
 					size: [width - thickness * 2, depth - thickness, 15],
@@ -421,8 +422,8 @@ export const robotBody = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 				[-11 - 44.25, width - 29, 2],
 				rotateZ(degToRad(180), cableHolder()),
 			),
-			translate([-6, 22, 2], cableHolder()),
-			translate([-6, width - 22, 2], rotateZ(degToRad(180), cableHolder())),
+			translate([-16, 28, 2], cableHolder()),
+			translate([-16, width - 28, 2], rotateZ(degToRad(180), cableHolder())),
 			translate([-length + 20, width / 2, 0], frontWheel()),
 			translate([-length + 20, width / 2, 0], batteryStraps(pcbWidth)),
 		),
