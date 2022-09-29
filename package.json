@@ -25,19 +25,19 @@
   "author": "Markus Tacker <m@coderbyheart.com> | https://coderbyheart.com",
   "license": "MIT",
   "dependencies": {
-    "@jscad/core": "2.6.2",
-    "@jscad/modeling": "2.9.6",
-    "@jscad/regl-renderer": "2.6.2",
-    "@jscad/stl-serializer": "2.1.11",
+    "@jscad/core": "2.6.3",
+    "@jscad/modeling": "2.10.0",
+    "@jscad/regl-renderer": "2.6.3",
+    "@jscad/stl-serializer": "2.1.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.3.0"
   },
   "devDependencies": {
-    "@nordicsemiconductor/asset-tracker-cloud-code-style": "11.0.110",
+    "@nordicsemiconductor/asset-tracker-cloud-code-style": "11.0.123",
     "eslint-plugin-no-restricted-imports": "0.0.0",
     "handlebars": "4.7.7",
-    "vite": "3.0.8"
+    "vite": "3.0.9"
   },
   "lint-staged": {
     "*.ts": [
