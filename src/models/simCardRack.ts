@@ -11,6 +11,7 @@ import type {
 	Path2,
 	Poly3,
 } from '@jscad/modeling/src/geometries/types'
+import { translateY } from '@jscad/modeling/src/operations/transforms'
 
 const { translate, scale, mirrorX } = transforms
 const { cylinder, cuboid } = primitives
@@ -92,9 +93,86 @@ const simTray = () => {
 	)
 }
 
+export const simRack = ({
+	slots,
+	height,
+	simHolder,
+}: {
+	slots: number
+	height: number
+	simHolder: {
+		width: number
+		depth: number
+	}
+}) => {
+	const padding = 4
+	const width = simHolder.width + padding
+	const depthPerSlot = simHolder.depth + padding
+	const slotHolders = []
+	for (let i = 0; i < slots; i++) {
+		slotHolders.push(
+			translate(
+				[((i % 2) * width) / 2, i * depthPerSlot - (i * padding) / 2, 0],
+				subtract(
+					cuboid({
+						size: [width, depthPerSlot, height],
+					}),
+					cuboid({
+						size: [simHolder.width, simHolder.depth, height],
+					}),
+				),
+			),
+		)
+	}
+	return translate(
+		[0, 0, height / 2],
+		union(
+			translateY(depthPerSlot / 2, slotHolders),
+			translate(
+				[padding, 0, -height / 4],
+				union(
+					subtract(
+						cylinder({
+							height: height / 2,
+							radius: width / 2 + padding,
+						}),
+						cylinder({
+							height: height / 2,
+							radius: width / 2,
+						}),
+						cuboid({
+							size: [(width / 2 + padding) * 2, width, height],
+							center: [0, width / 2, 0],
+						}),
+					),
+					cuboid({
+						size: [padding, padding + simHolder.depth, height / 2],
+						center: [
+							width / 2 + padding / 2,
+							(padding + simHolder.depth) / 2,
+							0,
+						],
+					}),
+				),
+			),
+		),
+	)
+}
+
 export const simCardRack = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 	return [
 		//colorize(hexToRgb('#FFD700'), translate([1.5, 1.5, 4], sim())),
-		colorize(hexToRgb('#3333ff'), simTray()),
+		//colorize(hexToRgb('#3333ff'), translateX(-30, simTray())),
+		colorize(
+			hexToRgb('#ff3333'),
+			simRack({
+				slots: 10,
+				height: 4,
+				simHolder: {
+					width: 12,
+					depth: 2,
+				},
+			}),
+		),
 	]
 }
