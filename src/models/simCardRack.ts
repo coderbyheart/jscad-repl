@@ -53,9 +53,10 @@ const sim = () => {
 }
 
 const simTray = () => {
-	const thickness = 2
+	const shaveOff = 0.2 // shave off a bit to fit in the rack
+	const thickness = 2 - shaveOff
 	const cornerRadius = 1
-	const width = simWidth + 5
+	const width = simWidth + 5 - shaveOff
 	const height = simHeight + 3
 	return translate(
 		[0, 0, thickness / 2],
@@ -112,7 +113,7 @@ export const simRack = ({
 	for (let i = 0; i < slots; i++) {
 		slotHolders.push(
 			translate(
-				[((i % 2) * width) / 2, i * depthPerSlot - (i * padding) / 2, 0],
+				[((i % 2) * width) / 2, i * depthPerSlot, 0],
 				subtract(
 					cuboid({
 						size: [width, depthPerSlot, height],
@@ -129,15 +130,15 @@ export const simRack = ({
 		union(
 			translateY(depthPerSlot / 2, slotHolders),
 			translate(
-				[padding, 0, -height / 4],
+				[padding, 0, 0],
 				union(
 					subtract(
 						cylinder({
-							height: height / 2,
+							height: height,
 							radius: width / 2 + padding,
 						}),
 						cylinder({
-							height: height / 2,
+							height: height,
 							radius: width / 2,
 						}),
 						cuboid({
@@ -146,7 +147,7 @@ export const simRack = ({
 						}),
 					),
 					cuboid({
-						size: [padding, padding + simHolder.depth, height / 2],
+						size: [padding, padding + simHolder.depth, height],
 						center: [
 							width / 2 + padding / 2,
 							(padding + simHolder.depth) / 2,
@@ -167,7 +168,7 @@ export const simCardRack = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 			hexToRgb('#ff3333'),
 			simRack({
 				slots: 10,
-				height: 4,
+				height: 3,
 				simHolder: {
 					width: 12,
 					depth: 2,
