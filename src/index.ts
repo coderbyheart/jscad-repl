@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { wheelPlug } from './models/wheelPlug'
+import { coatHanger } from './models/coatHanger'
 import { renderModel } from './renderModel'
 
 const containerElement = document.getElementById('jscad')
 
-const model = wheelPlug()
+const model = coatHanger()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
