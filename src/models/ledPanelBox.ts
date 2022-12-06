@@ -1,6 +1,10 @@
-import { colorize, hexToRgb } from '@jscad/modeling/src/colors'
-import { subtract, union } from '@jscad/modeling/src/operations/booleans'
 import {
+	intersect,
+	subtract,
+	union,
+} from '@jscad/modeling/src/operations/booleans'
+import {
+	rotate,
 	rotateX,
 	rotateZ,
 	translate,
@@ -9,8 +13,8 @@ import {
 import { cuboid, cylinder } from '@jscad/modeling/src/primitives'
 import { degToRad } from '@jscad/modeling/src/utils'
 
-const panelWidth = 120
-const panelLength = 282
+const panelWidth = 100
+const panelLength = 279
 const boxHeight = 150
 const thickness = 4
 
@@ -46,14 +50,63 @@ const side = ({
 	const padding = 15
 	const radius = 20
 	const segments = 64
+	const sideCutsLeft = []
+	const sideCutsRight = []
+	for (let i = 0; i < height / (radius + padding / 2); i++) {
+		sideCutsLeft.push(
+			translate(
+				[length / 2, 0, i * (radius + padding / 2) - height / 2 - 25],
+				rotateX(
+					degToRad(90),
+					cylinder({
+						segments,
+						radius: radius / 2,
+						height: padding,
+					}),
+				),
+			),
+		)
+		sideCutsRight.push(
+			translate(
+				[-length / 2, 0, i * (radius + padding / 2) - height / 2 - 25],
+				rotateX(
+					degToRad(90),
+					cylinder({
+						segments,
+						radius: radius / 2,
+						height: padding,
+					}),
+				),
+			),
+		)
+	}
 	return union(
 		// Plate
 		subtract(
-			cuboid({ size: [length, thickness, height] }),
+			union(
+				// Base plate
+				cuboid({ size: [length, thickness, height] }),
+				// Inner support ridge
+				subtract(
+					cuboid({
+						size: [length - 2 * radius, 6, 10],
+						center: [0, -5, height / 2 - 5],
+					}),
+					rotate(
+						[degToRad(90), 0, degToRad(90)], // Ridge
+						cylinder({
+							segments: 32,
+							height: length - 2 * radius,
+							radius: 15,
+							center: [-15, height / 2 - 17, 0],
+						}),
+					),
+				),
+			),
 			// ridge for LED panel
 			cuboid({
-				size: [length, thickness, thickness],
-				center: [0, -thickness / 2, height / 2],
+				size: [length, 50, thickness],
+				center: [0, -25, height / 2],
 			}),
 			// Cut out circle 1
 			translate(
@@ -114,52 +167,74 @@ const side = ({
 					}),
 				),
 			),
+			...sideCutsLeft,
+			...sideCutsRight,
 		),
 	)
 }
 
 export const ledPanelBox = () => [
+	/*
 	colorize(
 		hexToRgb('#6a97bf'),
 		translateZ(boxHeight, rotateX(degToRad(180), ledPanel())),
 	),
-	union(
-		translate(
-			[0, panelWidth / 2, boxHeight / 2],
-			side({ height: boxHeight, length: panelLength + thickness, thickness }),
-		),
-		translate(
-			[0, -panelWidth / 2, boxHeight / 2],
-			rotateZ(
-				degToRad(180),
-				side({
-					height: boxHeight,
-					length: panelLength + thickness,
-					thickness,
-				}),
+	*/
+	// Only print sides
+	intersect(
+		subtract(
+			union(
+				translate(
+					[0, panelWidth / 2, boxHeight / 2],
+					side({
+						height: boxHeight,
+						length: panelLength + thickness,
+						thickness,
+					}),
+				),
+				translate(
+					[0, -panelWidth / 2, boxHeight / 2],
+					rotateZ(
+						degToRad(180),
+						side({
+							height: boxHeight,
+							length: panelLength + thickness,
+							thickness,
+						}),
+					),
+				),
+				translate(
+					[-panelLength / 2, 0, boxHeight / 2],
+					rotateZ(
+						degToRad(90),
+						side({
+							height: boxHeight,
+							length: panelWidth + thickness,
+							thickness,
+						}),
+					),
+				),
+				translate(
+					[panelLength / 2, 0, boxHeight / 2],
+					rotateZ(
+						degToRad(-90),
+						side({
+							height: boxHeight,
+							length: panelWidth + thickness,
+							thickness,
+						}),
+					),
+				),
 			),
+			// Cut-out for cable fastener
+			cuboid({
+				size: [10, panelWidth * 1.1, 2.5],
+				center: [panelLength / 2 - 40, 0, boxHeight - 10],
+			}),
 		),
-		translate(
-			[-panelLength / 2, 0, boxHeight / 2],
-			rotateZ(
-				degToRad(90),
-				side({
-					height: boxHeight,
-					length: panelWidth + thickness,
-					thickness,
-				}),
-			),
-		),
-		translate(
-			[panelLength / 2, 0, boxHeight / 2],
-			rotateZ(
-				degToRad(-90),
-				side({
-					height: boxHeight,
-					length: panelWidth + thickness,
-					thickness,
-				}),
-			),
-		),
+		cuboid({
+			size: [50, 200, boxHeight],
+			center: [(panelLength + thickness) / 2 - 25, 0, boxHeight / 2],
+		}),
 	),
 ]

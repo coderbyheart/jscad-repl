@@ -27,7 +27,7 @@ export const renderModel = ({
 	// prepare the camera
 	state.camera = Object.assign({}, perspectiveCamera.defaults, {
 		//position: [450, 550, 700],
-		position: [450, 550, 700],
+		position: [1500, 2000, 2000],
 		fov: Math.PI / 32,
 	})
 	perspectiveCamera.setProjection(state.camera, state.camera, { width, height })
