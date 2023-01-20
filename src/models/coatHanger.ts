@@ -50,6 +50,10 @@ export const coatHanger = () => {
 						-(height / (3 / 2)) + 1,
 					],
 				}),
+				cuboid({
+					size: [width * 2, width, thickness],
+					center: [-(hangerDepth + width / 2), 0, -(thickness + thickness / 2)],
+				}),
 				translate(
 					[
 						height / (3 / 2) / 2 + hangerDepth / 2 + 2 * thickness - 0.5,

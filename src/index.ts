@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { ledPanelBox } from './models/ledPanelBox'
+import { coatHanger } from './models/coatHanger'
 import { renderModel } from './renderModel'
 
 const containerElement = document.getElementById('jscad')
 
-const model = ledPanelBox()
+const model = coatHanger()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
