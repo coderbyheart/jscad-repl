@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { webcamFocusRing } from './models/webcamFocusRing'
+import { thermosRing } from './models/thermosRing'
 import { renderModel } from './renderModel'
 
 const containerElement = document.getElementById('jscad')
 
-const model = webcamFocusRing()
+const model = thermosRing()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
