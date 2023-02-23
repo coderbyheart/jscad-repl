@@ -1,16 +1,8 @@
-import {
-	booleans,
-	colors,
-	hulls,
-	primitives,
-	transforms,
-} from '@jscad/modeling'
+import { booleans, hulls, primitives } from '@jscad/modeling'
 import { translateX } from '@jscad/modeling/src/operations/transforms'
 
-const { translate, scale, mirrorX, scaleZ, translateZ } = transforms
-const { cylinder, cuboid, sphere } = primitives
+const { cylinder } = primitives
 const { hull } = hulls
-const { colorize, hexToRgb } = colors
 const { subtract, union } = booleans
 
 const innerSize = 72
@@ -23,14 +15,14 @@ export const thermosRing = () => {
 				hull(
 					cylinder({
 						height: thickness,
-						radius: innerSize + 1.5 * thickness,
+						radius: innerSize / 2 + thickness,
 						segments: 128,
 					}),
 					translateX(
-						innerSize + 3 * thickness,
+						innerSize / 2 + 2 * thickness,
 						cylinder({
 							height: thickness,
-							radius: 3 * thickness,
+							radius: 2 * thickness,
 							segments: 64,
 						}),
 					),
@@ -38,15 +30,15 @@ export const thermosRing = () => {
 			),
 			cylinder({
 				height: thickness,
-				radius: innerSize,
+				radius: innerSize / 2,
 				segments: 128,
 			}),
 			translateX(
-				innerSize + 3 * thickness,
+				innerSize / 2 + 2 * thickness,
 				subtract(
 					cylinder({
 						height: thickness,
-						radius: 1.5 * thickness,
+						radius: thickness,
 						segments: 64,
 					}),
 				),
