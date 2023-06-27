@@ -8,6 +8,8 @@ import { rotateX, translateZ } from '@jscad/modeling/src/operations/transforms'
 import { cuboid, cylinder } from '@jscad/modeling/src/primitives'
 import { degToRad } from '@jscad/modeling/src/utils'
 
+const outerDiameter = 34
+const innerDiameter = 23
 export const vanValveOpener = (): Geometry =>
 	union(
 		translateZ(
@@ -17,7 +19,7 @@ export const vanValveOpener = (): Geometry =>
 					subtract(
 						cylinder({
 							height: 40,
-							radius: 34 / 2,
+							radius: outerDiameter / 2,
 							segments: 60,
 						}),
 						translateZ(
@@ -25,11 +27,11 @@ export const vanValveOpener = (): Geometry =>
 							intersect(
 								cylinder({
 									height: 30,
-									radius: 22 / 2,
+									radius: innerDiameter / 2,
 									segments: 60,
 								}),
 								cuboid({
-									size: [15, 22, 30],
+									size: [17, innerDiameter, 30],
 								}),
 							),
 						),
@@ -40,24 +42,24 @@ export const vanValveOpener = (): Geometry =>
 							subtract(
 								cylinder({
 									height: 5,
-									radius: 34 / 2,
+									radius: outerDiameter / 2,
 									segments: 60,
 								}),
 								cylinder({
 									height: 5,
-									radius: 22 / 2,
+									radius: innerDiameter / 2,
 									segments: 60,
 								}),
 							),
 							cuboid({
-								size: [10, 34 / 2, 5],
-								center: [0, 34 / 2, 0],
+								size: [10, outerDiameter / 2, 5],
+								center: [0, outerDiameter / 2, 0],
 							}),
 						),
 					),
 				),
 				cuboid({
-					size: [22 + 4, 34, 60],
+					size: [innerDiameter + 4, outerDiameter, 60],
 				}),
 			),
 		),
