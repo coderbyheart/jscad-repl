@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { vanValveOpener } from './models/vanValveOpener.js'
+import { thingyDodecahedron } from './models/thingyDodecahedron.js'
 import { renderModel } from './renderModel.js'
 
 const containerElement = document.getElementById('jscad')
 
-const model = vanValveOpener()
+const model = thingyDodecahedron()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
