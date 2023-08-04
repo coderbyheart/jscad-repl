@@ -13,7 +13,6 @@ import {
 	scale,
 	translate,
 	translateX,
-	translateY,
 	translateZ,
 } from '@jscad/modeling/src/operations/transforms'
 import {
@@ -53,18 +52,21 @@ const brace = () =>
 				[54 / 2, 54 / 2, radius],
 				sphere({
 					radius: 3,
+					segments: 12,
 				}),
 			),
 			translate(
 				[radius - 6, 0, 6],
 				sphere({
 					radius: 3,
+					segments: 12,
 				}),
 			),
 			translate(
 				[54 / 2, -54 / 2, radius],
 				sphere({
 					radius: 3,
+					segments: 12,
 				}),
 			),
 			rotateZ(
@@ -73,6 +75,7 @@ const brace = () =>
 					[radius - 6, 0, 6],
 					sphere({
 						radius: 3,
+						segments: 12,
 					}),
 				),
 			),
@@ -80,6 +83,7 @@ const brace = () =>
 				[-54 / 2, -54 / 2, radius],
 				sphere({
 					radius: 3,
+					segments: 12,
 				}),
 			),
 			rotateZ(
@@ -88,6 +92,7 @@ const brace = () =>
 					[radius - 6, 0, 6],
 					sphere({
 						radius: 3,
+						segments: 12,
 					}),
 				),
 			),
@@ -95,6 +100,7 @@ const brace = () =>
 				[-54 / 2, 0, radius],
 				sphere({
 					radius: 3,
+					segments: 12,
 				}),
 			),
 			rotateZ(
@@ -103,6 +109,7 @@ const brace = () =>
 					[radius - 6, 0, 6],
 					sphere({
 						radius: 3,
+						segments: 12,
 					}),
 				),
 			),
@@ -110,6 +117,7 @@ const brace = () =>
 				[-54 / 2, 54 / 2, radius],
 				sphere({
 					radius: 3,
+					segments: 12,
 				}),
 			),
 			rotateZ(
@@ -118,6 +126,7 @@ const brace = () =>
 					[radius - 6, 0, 6],
 					sphere({
 						radius: 3,
+						segments: 12,
 					}),
 				),
 			),
@@ -125,34 +134,99 @@ const brace = () =>
 				[54 / 2, 54 / 2, radius],
 				sphere({
 					radius: 3,
+					segments: 12,
+				}),
+			),
+		),
+		// Corners
+		translate(
+			[54 / 2, 54 / 2, radius],
+			sphere({
+				radius: 3 * 2,
+				segments: 12,
+			}),
+		),
+		translate(
+			[radius - 6, 0, 6],
+			sphere({
+				radius: 3 * 2,
+				segments: 12,
+			}),
+		),
+		translate(
+			[54 / 2, -54 / 2, radius],
+			sphere({
+				radius: 3 * 2,
+				segments: 12,
+			}),
+		),
+		rotateZ(
+			degToRad(-segmentAngle),
+			translate(
+				[radius - 6, 0, 6],
+				sphere({
+					radius: 3 * 2,
+					segments: 12,
 				}),
 			),
 		),
 		translate(
-			[0, 0, radius],
-			subtract(
-				cuboid({
-					size: [60, 60, 6],
-				}),
-				cuboid({
-					size: [60 - 15, 60 - 15, 12],
+			[-54 / 2, -54 / 2, radius],
+			sphere({
+				radius: 3 * 2,
+				segments: 12,
+			}),
+		),
+		rotateZ(
+			degToRad(-segmentAngle * 2),
+			translate(
+				[radius - 6, 0, 6],
+				sphere({
+					radius: 3 * 2,
+					segments: 12,
 				}),
 			),
 		),
-		translateZ(
-			6,
-			subtract(
-				cylinder({
-					radius,
-					segments: 5,
-					height: 6,
-				}),
-				cylinder({
-					radius: radius - 10,
-					segments: 5,
-					height: 12,
+		translate(
+			[-54 / 2, 0, radius],
+			sphere({
+				radius: 3 * 2,
+				segments: 12,
+			}),
+		),
+		rotateZ(
+			degToRad(-segmentAngle * 3),
+			translate(
+				[radius - 6, 0, 6],
+				sphere({
+					radius: 3 * 2,
+					segments: 12,
 				}),
 			),
+		),
+		translate(
+			[-54 / 2, 54 / 2, radius],
+			sphere({
+				radius: 3 * 2,
+				segments: 12,
+			}),
+		),
+		rotateZ(
+			degToRad(-segmentAngle * 4),
+			translate(
+				[radius - 6, 0, 6],
+				sphere({
+					radius: 3 * 2,
+					segments: 12,
+				}),
+			),
+		),
+		translate(
+			[54 / 2, 54 / 2, radius],
+			sphere({
+				radius: 3 * 2,
+				segments: 12,
+			}),
 		),
 	)
 
@@ -243,18 +317,20 @@ const cube = () => [
 ]
 
 export const thingyDodecahedron = () => [
-	colorize(hexToRgb('#e76f51'), cube()),
+	//colorize(hexToRgb('#e76f51'), cube()),
+	/*
 	rotateZ(
 		degToRad(segmentAngle * 2.5),
 		translateZ(radius, colorize(hexToRgb('#ff6600'), thingy())),
 	),
 	colorize(hexToRgb('#3a86ff'), translateY(radius * 2, hexagon())),
+	*/
 	colorize(
 		hexToRgb('#C2F261'),
 		subtract(
 			brace(),
 			scale(
-				[1.01, 1.01, 1.01],
+				[1.02, 1.02, 1.02],
 				rotateZ(degToRad(segmentAngle * 2.5), translateZ(radius, thingy())),
 			),
 			cube(),
@@ -265,7 +341,7 @@ export const thingyDodecahedron = () => [
 		subtract(
 			translateZ(radius * 2.575, rotateY(degToRad(180), brace())),
 			scale(
-				[1.01, 1.01, 1.01],
+				[1.02, 1.02, 1.02],
 				rotateZ(degToRad(segmentAngle * 2.5), translateZ(radius, thingy())),
 			),
 			cube(),
