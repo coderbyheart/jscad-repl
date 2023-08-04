@@ -47,98 +47,6 @@ const thingy = () =>
 
 const brace = () =>
 	union(
-		hullChain(
-			translate(
-				[54 / 2, 54 / 2, radius],
-				sphere({
-					radius: 3,
-					segments: 12,
-				}),
-			),
-			translate(
-				[radius - 6, 0, 6],
-				sphere({
-					radius: 3,
-					segments: 12,
-				}),
-			),
-			translate(
-				[54 / 2, -54 / 2, radius],
-				sphere({
-					radius: 3,
-					segments: 12,
-				}),
-			),
-			rotateZ(
-				degToRad(-segmentAngle),
-				translate(
-					[radius - 6, 0, 6],
-					sphere({
-						radius: 3,
-						segments: 12,
-					}),
-				),
-			),
-			translate(
-				[-54 / 2, -54 / 2, radius],
-				sphere({
-					radius: 3,
-					segments: 12,
-				}),
-			),
-			rotateZ(
-				degToRad(-segmentAngle * 2),
-				translate(
-					[radius - 6, 0, 6],
-					sphere({
-						radius: 3,
-						segments: 12,
-					}),
-				),
-			),
-			translate(
-				[-54 / 2, 0, radius],
-				sphere({
-					radius: 3,
-					segments: 12,
-				}),
-			),
-			rotateZ(
-				degToRad(-segmentAngle * 3),
-				translate(
-					[radius - 6, 0, 6],
-					sphere({
-						radius: 3,
-						segments: 12,
-					}),
-				),
-			),
-			translate(
-				[-54 / 2, 54 / 2, radius],
-				sphere({
-					radius: 3,
-					segments: 12,
-				}),
-			),
-			rotateZ(
-				degToRad(-segmentAngle * 4),
-				translate(
-					[radius - 6, 0, 6],
-					sphere({
-						radius: 3,
-						segments: 12,
-					}),
-				),
-			),
-			translate(
-				[54 / 2, 54 / 2, radius],
-				sphere({
-					radius: 3,
-					segments: 12,
-				}),
-			),
-		),
-		// Corners
 		translate(
 			[54 / 2, 54 / 2, radius],
 			sphere({
@@ -170,6 +78,7 @@ const brace = () =>
 				}),
 			),
 		),
+
 		translate(
 			[-54 / 2, -54 / 2, radius],
 			sphere({
@@ -227,6 +136,117 @@ const brace = () =>
 				radius: 3 * 2,
 				segments: 12,
 			}),
+		),
+		// Beams
+		rotateX(
+			degToRad(45),
+			cuboid({
+				size: [5, 5, radius + 12],
+				center: [innerRadius, 3, 6 + radius / 2],
+			}),
+		),
+		rotateX(
+			degToRad(-45),
+			cuboid({
+				size: [5, 5, radius + 12],
+				center: [innerRadius, -3, 6 + radius / 2],
+			}),
+		),
+		translate(
+			[-innerRadius + 2, -innerRadius / 2 - 8, radius / 2 + 4],
+			rotateZ(
+				degToRad(-25),
+				rotateX(
+					degToRad(30),
+					cuboid({
+						size: [5, 5, radius],
+					}),
+				),
+			),
+		),
+		translate(
+			[-innerRadius + 2, -7, radius / 2 + 4],
+			rotateZ(
+				degToRad(25),
+				rotateX(
+					degToRad(-30),
+					cuboid({
+						size: [5, 5, radius],
+					}),
+				),
+			),
+		),
+		translate(
+			[-innerRadius + 2, innerRadius / 2 + 8, radius / 2 + 4],
+			rotateZ(
+				degToRad(25),
+				rotateX(
+					degToRad(-30),
+					cuboid({
+						size: [5, 5, radius],
+					}),
+				),
+			),
+		),
+		translate(
+			[-innerRadius + 2, 7, radius / 2 + 4],
+			rotateZ(
+				degToRad(-25),
+				rotateX(
+					degToRad(30),
+					cuboid({
+						size: [5, 5, radius],
+					}),
+				),
+			),
+		),
+		translate(
+			[radius / 2, radius - 6, radius / 2 + 4],
+			rotateZ(
+				degToRad(10),
+				rotateY(
+					degToRad(40),
+					cuboid({
+						size: [5, 5, radius],
+					}),
+				),
+			),
+		),
+		translate(
+			[radius / 2, -radius + 6, radius / 2 + 4],
+			rotateZ(
+				degToRad(-10),
+				rotateY(
+					degToRad(40),
+					cuboid({
+						size: [5, 5, radius],
+					}),
+				),
+			),
+		),
+		translate(
+			[-radius / 2 + 10, radius - 6, radius / 2],
+			rotateZ(
+				degToRad(-5),
+				rotateY(
+					degToRad(-50),
+					cuboid({
+						size: [5, 5, radius * 1.4],
+					}),
+				),
+			),
+		),
+		translate(
+			[-radius / 2 + 10, -radius + 6, radius / 2],
+			rotateZ(
+				degToRad(5),
+				rotateY(
+					degToRad(-50),
+					cuboid({
+						size: [5, 5, radius * 1.4],
+					}),
+				),
+			),
 		),
 	)
 
