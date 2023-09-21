@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { thingyDodecahedron } from './models/thingyDodecahedron.js'
+import { dkClip } from './models/dkClip.js'
 import { renderModel } from './renderModel.js'
 
 const containerElement = document.getElementById('jscad')
 
-const model = thingyDodecahedron()
+const model = dkClip()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
