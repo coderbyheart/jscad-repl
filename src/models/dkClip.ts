@@ -12,6 +12,7 @@ const height = 46
 const width = 74
 const slotWidth = 4
 const depth = 2
+const distanceFromSide = 8
 
 export const dkClip = () => [
 	translateZ(
@@ -22,7 +23,11 @@ export const dkClip = () => [
 			}),
 			hull(
 				translate(
-					[0, -width / 2 + slotWidth / 2 + 9, height / 2 - slotWidth / 2 - 5],
+					[
+						0,
+						-width / 2 + slotWidth / 2 + distanceFromSide,
+						height / 2 - slotWidth / 2 - 5,
+					],
 					rotateY(
 						degToRad(90),
 						cylinder({
@@ -32,7 +37,11 @@ export const dkClip = () => [
 					),
 				),
 				translate(
-					[0, -width / 2 + slotWidth / 2 + 9, -height / 2 + slotWidth / 2 + 5],
+					[
+						0,
+						-width / 2 + slotWidth / 2 + distanceFromSide,
+						-height / 2 + slotWidth / 2 + 5,
+					],
 					rotateY(
 						degToRad(90),
 						cylinder({
@@ -44,7 +53,11 @@ export const dkClip = () => [
 			),
 			hull(
 				translate(
-					[0, width / 2 - slotWidth / 2 - 9, height / 2 - slotWidth / 2 - 5],
+					[
+						0,
+						width / 2 - slotWidth / 2 - distanceFromSide,
+						height / 2 - slotWidth / 2 - 5,
+					],
 					rotateY(
 						degToRad(90),
 						cylinder({
@@ -54,7 +67,11 @@ export const dkClip = () => [
 					),
 				),
 				translate(
-					[0, width / 2 - slotWidth / 2 - 9, -height / 2 + slotWidth / 2 + 5],
+					[
+						0,
+						width / 2 - slotWidth / 2 - distanceFromSide,
+						-height / 2 + slotWidth / 2 + 5,
+					],
 					rotateY(
 						degToRad(90),
 						cylinder({
@@ -66,18 +83,43 @@ export const dkClip = () => [
 			),
 			// Left hole
 			cuboid({
-				size: [depth, 6, height - 4],
-				center: [0, -width / 2 + 2.5 + 2, 0],
+				size: [depth, distanceFromSide - 2 * depth, height - 2 * depth],
+				center: [0, -width / 2 + (distanceFromSide - 2 * depth) / 2 + depth, 0],
 			}),
 			// Right hole
 			cuboid({
-				size: [depth, 6, height - 4],
-				center: [0, width / 2 - 2.5 - 2, 0],
+				size: [depth, distanceFromSide - 2 * depth, height - 2 * depth],
+				center: [0, width / 2 - (distanceFromSide - 2 * depth) / 2 - depth, 0],
 			}),
 			// Center hole
 			cuboid({
-				size: [depth, width - 2 * (9 + 4 + 2), height - 4],
+				size: [
+					depth,
+					width - 2 * (distanceFromSide + 2 * depth + 2),
+					height - 2 * depth,
+				],
 			}),
+			...[
+				// Top right hole
+				[width / 2 - slotWidth / 2 - distanceFromSide, height / 2],
+				// Top left hole
+				[-width / 2 + slotWidth / 2 + distanceFromSide, height / 2],
+				// Bottom right hole
+				[width / 2 - slotWidth / 2 - distanceFromSide, -height / 2],
+				// Top Bottom hole
+				[-width / 2 + slotWidth / 2 + distanceFromSide, -height / 2],
+			].map(([y, z]) =>
+				translate(
+					[0, y, z],
+					rotateY(
+						degToRad(90),
+						cylinder({
+							height: 10,
+							radius: slotWidth / 2,
+						}),
+					),
+				),
+			),
 		),
 	),
 ]
