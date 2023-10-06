@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@nordicsemiconductor/asset-tracker-cloud-code-style": "12.0.93",
+    "@nordicsemiconductor/eslint-config-asset-tracker-cloud-typescript": "16.0.22",
     "eslint-plugin-no-restricted-imports": "0.0.0",
     "handlebars": "4.7.8",
     "vite": "4.4.11"

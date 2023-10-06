@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { dkClip } from './models/dkClip.js'
+import { sproutCap } from './models/sproutCap.js'
 import { renderModel } from './renderModel.js'
 
 const containerElement = document.getElementById('jscad')
 
-const model = dkClip()
+const model = sproutCap()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
