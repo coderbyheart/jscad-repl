@@ -23,7 +23,7 @@ export const sproutCap = () => {
 			}),
 			cylinder({
 				height: 10,
-				radius: 80 / 2,
+				radius: 81 / 2,
 				segments: 64,
 			}),
 		),
@@ -33,17 +33,17 @@ export const sproutCap = () => {
 				degToRad(i * 60),
 				intersect(
 					translateZ(
-						4,
+						4.5,
 						cylinder({
-							height: 2,
+							height: 1,
 							radius: 85 / 2,
 							segments: 64,
 						}),
 					),
 					translate(
-						[80, 0, 4],
+						[82, 0, 4.5],
 						cylinder({
-							height: 2,
+							height: 1,
 							radius: 85 / 2,
 							segments: 64,
 						}),
