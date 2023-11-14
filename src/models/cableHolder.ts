@@ -1,20 +1,26 @@
 import { Geom3 } from '@jscad/modeling/src/geometries/types'
 import { union, subtract } from '@jscad/modeling/src/operations/booleans'
-import { rotateX, translate } from '@jscad/modeling/src/operations/transforms'
-import { cuboid } from '@jscad/modeling/src/primitives'
+import { extrudeLinear } from '@jscad/modeling/src/operations/extrusions'
+import {
+	rotate,
+	rotateX,
+	translate,
+} from '@jscad/modeling/src/operations/transforms'
+import { cuboid, triangle } from '@jscad/modeling/src/primitives'
 import { degToRad } from '@jscad/modeling/src/utils'
 
 export const cableHolder = (): Geom3[] => [
 	union(
 		cuboid({
-			size: [60, 2, 60],
+			size: [14, 2, 30],
+			center: [0, 4, 15],
 		}),
 		cuboid({
-			size: [60, 18, 2],
-			center: [0, 8, 30],
+			size: [14, 14, 2],
+			center: [0, 10, 30],
 		}),
 		cuboid({
-			size: [60, 2, 22],
+			size: [14, 2, 22],
 			center: [0, 18, 40],
 		}),
 		translate(
@@ -22,21 +28,21 @@ export const cableHolder = (): Geom3[] => [
 			rotateX(
 				degToRad(45),
 				cuboid({
-					size: [60, 2, 37],
+					size: [14, 2, 37],
 				}),
 			),
 		),
 		translate(
-			[0, 15, 26],
+			[0, 17, 28],
 			rotateX(
 				degToRad(-45),
 				cuboid({
-					size: [60, 2, 42],
+					size: [14, 2, 36],
 				}),
 			),
 		),
 		cuboid({
-			size: [60, 18, 2],
+			size: [14, 18, 2],
 			center: [0, 3, 57],
 		}),
 		subtract(
@@ -46,7 +52,7 @@ export const cableHolder = (): Geom3[] => [
 					rotateX(
 						degToRad(45),
 						cuboid({
-							size: [60, 30, 2],
+							size: [14, 30, 2],
 						}),
 					),
 				),
@@ -55,45 +61,30 @@ export const cableHolder = (): Geom3[] => [
 					rotateX(
 						degToRad(45),
 						cuboid({
-							size: [60, 2, 6],
+							size: [14, 2, 6],
 						}),
 					),
 				),
 			),
 			translate(
-				[-7.5, 15, 79],
-				rotateX(
-					degToRad(45),
-					cuboid({
-						size: [5, 25, 10],
-					}),
-				),
-			),
-			translate(
-				[7.5, 15, 79],
-				rotateX(
-					degToRad(45),
-					cuboid({
-						size: [5, 25, 10],
-					}),
-				),
-			),
-			translate(
-				[-22.5, 15, 79],
-				rotateX(
-					degToRad(45),
-					cuboid({
-						size: [5, 25, 10],
-					}),
-				),
-			),
-			translate(
-				[22.5, 15, 79],
-				rotateX(
-					degToRad(45),
-					cuboid({
-						size: [5, 25, 10],
-					}),
+				[0, 12, 85],
+				rotate(
+					[degToRad(270) - degToRad(45), 0, 0],
+					translate(
+						[5.25, 0, 0],
+						rotate(
+							[0, 0, degToRad(15) + degToRad(90)],
+							extrudeLinear(
+								{
+									height: 10,
+								},
+								triangle({
+									type: 'SAS',
+									values: [20, degToRad(30), 20],
+								}),
+							),
+						),
+					),
 				),
 			),
 		),
