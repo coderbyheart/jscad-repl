@@ -79,7 +79,6 @@ const brace = () =>
 				}),
 			),
 		),
-
 		translate(
 			[-54 / 2, -54 / 2, radius],
 			sphere({
@@ -96,13 +95,6 @@ const brace = () =>
 					segments: 12,
 				}),
 			),
-		),
-		translate(
-			[-54 / 2, 0, radius],
-			sphere({
-				radius: 3 * 2,
-				segments: 12,
-			}),
 		),
 		rotateZ(
 			degToRad(-segmentAngle * 3),
@@ -130,13 +122,6 @@ const brace = () =>
 					segments: 12,
 				}),
 			),
-		),
-		translate(
-			[54 / 2, 54 / 2, radius],
-			sphere({
-				radius: 3 * 2,
-				segments: 12,
-			}),
 		),
 		// Beams
 		rotateX(
@@ -166,35 +151,11 @@ const brace = () =>
 			),
 		),
 		translate(
-			[-innerRadius + 2, -7, radius / 2 + 4],
-			rotateZ(
-				degToRad(25),
-				rotateX(
-					degToRad(-30),
-					cuboid({
-						size: [5, 5, radius],
-					}),
-				),
-			),
-		),
-		translate(
 			[-innerRadius + 2, innerRadius / 2 + 8, radius / 2 + 4],
 			rotateZ(
 				degToRad(25),
 				rotateX(
 					degToRad(-30),
-					cuboid({
-						size: [5, 5, radius],
-					}),
-				),
-			),
-		),
-		translate(
-			[-innerRadius + 2, 7, radius / 2 + 4],
-			rotateZ(
-				degToRad(-25),
-				rotateX(
-					degToRad(30),
 					cuboid({
 						size: [5, 5, radius],
 					}),
@@ -249,6 +210,11 @@ const brace = () =>
 				),
 			),
 		),
+		// Horizontal
+		cuboid({
+			size: [5, radius * 1.2, 5],
+			center: [-radius * 0.65, 0, 5],
+		}),
 	)
 
 const hexagon = () =>
@@ -338,7 +304,7 @@ const cube = () => [
 ]
 
 export const thingyDodecahedron = () => [
-	colorize(hexToRgb('#e76f51'), cube()),
+	// colorize(hexToRgb('#e76f51'), cube()),
 	rotateZ(
 		degToRad(segmentAngle * 2.5),
 		translateZ(radius, colorize(hexToRgb('#ff6600'), thingy())),
