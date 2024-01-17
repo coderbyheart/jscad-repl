@@ -13,6 +13,7 @@ import {
 	scale,
 	translate,
 	translateX,
+	translateY,
 	translateZ,
 } from '@jscad/modeling/src/operations/transforms'
 import {
@@ -23,7 +24,7 @@ import {
 } from '@jscad/modeling/src/primitives'
 import { degToRad } from '@jscad/modeling/src/utils'
 
-const radius = 65 / 2
+const radius = 68 / 2
 const innerRadius = radius * Math.cos(Math.PI / 5)
 const faceAngle = 127 // 116.56505
 const segmentAngle = 360 / 5
@@ -337,14 +338,12 @@ const cube = () => [
 ]
 
 export const thingyDodecahedron = () => [
-	//colorize(hexToRgb('#e76f51'), cube()),
-	/*
+	colorize(hexToRgb('#e76f51'), cube()),
 	rotateZ(
 		degToRad(segmentAngle * 2.5),
 		translateZ(radius, colorize(hexToRgb('#ff6600'), thingy())),
 	),
 	colorize(hexToRgb('#3a86ff'), translateY(radius * 2, hexagon())),
-	*/
 	colorize(
 		hexToRgb('#C2F261'),
 		subtract(

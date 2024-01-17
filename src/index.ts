@@ -1,10 +1,10 @@
 import { serialize } from '@jscad/stl-serializer'
-import { fidgetRing } from './models/fidgetRing.js'
+import { thingyDodecahedron } from './models/thingyDodecahedron.js'
 import { renderModel } from './renderModel.js'
 
 const containerElement = document.getElementById('jscad')
 
-const model = fidgetRing()
+const model = thingyDodecahedron()
 
 if (containerElement !== null) renderModel({ containerElement, model })
 
