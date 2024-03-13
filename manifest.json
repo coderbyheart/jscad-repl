@@ -1,0 +1,8 @@
+{
+  "short_name": "JSCAD Repl",
+  "name": "JSCAD Repl",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#333333",
+  "background_color": "#333333"
+}
