@@ -7,7 +7,7 @@
     "start": "vite",
     "build": "vite build --emptyOutDir",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -35,7 +35,12 @@
     "react-router-dom": "6.22.3"
   },
   "devDependencies": {
+    "@bifravst/prettier-config": "1.0.0",
+    "commitlint": "19.1.0",
     "handlebars": "4.7.8",
+    "husky": "9.0.11",
+    "prettier": "3.2.5",
+    "typescript": "5.4.2",
     "vite": "5.1.6"
   },
   "lint-staged": {
@@ -61,5 +66,5 @@
       "@semantic-release/github"
     ]
   },
-  "prettier": "@nordicsemiconductor/asset-tracker-cloud-code-style/.prettierrc"
+  "prettier": "@bifravst/prettier-config"
 }
