@@ -61,25 +61,29 @@ export const cone = ({
 	topRadius,
 	bottomRadius,
 	height,
+	center
 }: {
 	topRadius: number
 	bottomRadius: number
 	height: number
-}) =>
-	hull(
+	center?: [number, number, number]
+}) => {
+	const [cx,cy,cz] = center ?? [0,0,0]
+	return hull(
 		cylinder({
-			center: [0, 0, 0],
+			center: [cx,cy,cz],
 			height: 0.1,
 			radius: bottomRadius,
 			segments,
 		}),
 		cylinder({
-			center: [0, 0, height],
+			center: [cx,cy,cz+height],
 			height: 0.1,
 			radius: topRadius,
 			segments,
 		}),
 	)
+}
 
 export const chargerPlate = (): (Geom2 | Geom3 | Poly3 | Path2)[] => {
 	const radius = 7.5
