@@ -61,23 +61,23 @@ export const cone = ({
 	topRadius,
 	bottomRadius,
 	height,
-	center
+	center,
 }: {
 	topRadius: number
 	bottomRadius: number
 	height: number
 	center?: [number, number, number]
 }) => {
-	const [cx,cy,cz] = center ?? [0,0,0]
+	const [cx, cy, cz] = center ?? [0, 0, 0]
 	return hull(
 		cylinder({
-			center: [cx,cy,cz],
+			center: [cx, cy, cz],
 			height: 0.1,
 			radius: bottomRadius,
 			segments,
 		}),
 		cylinder({
-			center: [cx,cy,cz+height],
+			center: [cx, cy, cz + height],
 			height: 0.1,
 			radius: topRadius,
 			segments,

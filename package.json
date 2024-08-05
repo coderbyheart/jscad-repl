@@ -35,7 +35,7 @@
     "react-router-dom": "6.22.3"
   },
   "devDependencies": {
-    "@bifravst/prettier-config": "1.0.0",
+    "@bifravst/prettier-config": "^1.0.0",
     "commitlint": "19.1.0",
     "handlebars": "4.7.8",
     "husky": "9.0.11",
