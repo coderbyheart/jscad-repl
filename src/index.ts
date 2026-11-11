@@ -1,7 +1,7 @@
 import { measurements } from '@jscad/modeling'
 import { serialize } from '@jscad/stl-serializer'
 import { nordanWindowClip } from './models/nordanWindowClip.ts'
-import { renderModel } from './renderModel.ts'
+import { renderModel, type CameraView } from './renderModel.ts'
 
 const modelName = 'nordanWindowClip'
 const model = nordanWindowClip()
@@ -22,10 +22,38 @@ const saveShowGrid = (show: boolean): void => {
 	}
 }
 
+const viewKey = 'view'
+const isVec3 = (v: unknown): boolean =>
+	Array.isArray(v) &&
+	v.length === 3 &&
+	v.every((n) => typeof n === 'number' && Number.isFinite(n))
+const loadView = (): CameraView | undefined => {
+	try {
+		const view = JSON.parse(localStorage.getItem(viewKey) ?? 'null')
+		if (isVec3(view?.position) && isVec3(view?.target)) return view
+	} catch {
+		// Storage unavailable or invalid JSON, use default view
+	}
+	return undefined
+}
+const saveView = (view: CameraView): void => {
+	try {
+		localStorage.setItem(viewKey, JSON.stringify(view))
+	} catch {
+		// Storage unavailable (e.g. private mode), ignore
+	}
+}
+
 const containerElement = document.getElementById('jscad')
 const renderer =
 	containerElement !== null
-		? renderModel({ containerElement, model, showGrid: loadShowGrid() })
+		? renderModel({
+				containerElement,
+				model,
+				showGrid: loadShowGrid(),
+				view: loadView(),
+				onViewChange: saveView,
+			})
 		: undefined
 
 const download = (solids: unknown, fileName: string) => {

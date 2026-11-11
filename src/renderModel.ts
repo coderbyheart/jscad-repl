@@ -12,14 +12,23 @@ import {
 const perspectiveCamera = cameras.perspective
 const orbitControls = controls.orbit
 
+type Vec3 = [number, number, number]
+export type CameraView = { position: Vec3; target: Vec3 }
+
 export const renderModel = ({
 	containerElement,
 	model,
 	showGrid = true,
+	view,
+	onViewChange,
 }: {
 	containerElement: HTMLElement
 	model: any
 	showGrid?: boolean
+	/** Initial camera view, e.g. restored from a previous session */
+	view?: CameraView
+	/** Called whenever the camera comes to rest after a change */
+	onViewChange?: (view: CameraView) => void
 }) => {
 	const width = containerElement.clientWidth
 	const height = containerElement.clientHeight
@@ -31,6 +40,9 @@ export const renderModel = ({
 		//position: [450, 550, 700],
 		position: [1500, 2000, 2000],
 		fov: Math.PI / 32,
+		...(view !== undefined
+			? { position: [...view.position], target: [...view.target] }
+			: {}),
 	})
 	perspectiveCamera.setProjection(state.camera, state.camera, { width, height })
 	perspectiveCamera.update(state.camera, state.camera)
@@ -134,6 +146,13 @@ export const renderModel = ({
 			perspectiveCamera.update(state.camera)
 
 			renderer(renderOptions)
+
+			// camera has settled
+			if (!updateView)
+				onViewChange?.({
+					position: Array.from(state.camera.position) as Vec3,
+					target: Array.from(state.camera.target) as Vec3,
+				})
 		}
 		window.requestAnimationFrame(updateAndRender)
 	}
