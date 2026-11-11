@@ -16,7 +16,10 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: "26.x"
+          node-version: ">=26 <27"
+
+      - name: Install NPM version specified in package.json
+        uses: ./.github/actions/install-npm
 
       - name: Keep npm cache around to speed up installs
         uses: actions/cache@v6
