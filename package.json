@@ -53,7 +53,7 @@
     ]
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=26",
     "npm": ">=9"
   },
   "release": {
