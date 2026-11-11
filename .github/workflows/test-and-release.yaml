@@ -12,14 +12,14 @@ jobs:
     environment: production
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v7
         with:
           node-version: "20.x"
 
       - name: Keep npm cache around to speed up installs
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: ~/.npm
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
@@ -35,7 +35,7 @@ jobs:
           PUBLIC_VERSION: ${{ github.sha }}
         run: npm run build -- --base=/${{ github.event.repository.name }}/
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: needs-assessment-${{ github.sha }}
