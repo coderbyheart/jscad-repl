@@ -79,6 +79,60 @@ export const renderModel = ({
 		// zColor: [0, 0, 0, 1]
 	}
 
+	// axis labels: HTML overlays projected onto the tips of the axes
+	containerElement.style.position = 'relative'
+	const axisLabels = (
+		[
+			['X', [axisOptions.size, 0, 0], '#e00'],
+			['Y', [0, axisOptions.size, 0], '#0a0'],
+			['Z', [0, 0, axisOptions.size], '#00e'],
+		] as [string, Vec3, string][]
+	).map(([text, point, color]) => {
+		const el = document.createElement('div')
+		el.textContent = text
+		Object.assign(el.style, {
+			position: 'absolute',
+			left: '0',
+			top: '0',
+			font: 'bold 16px sans-serif',
+			color,
+			pointerEvents: 'none',
+			userSelect: 'none',
+		})
+		containerElement.appendChild(el)
+		return { el, point }
+	})
+	const updateAxisLabels = () => {
+		const { projection: p, view: v } = state.camera
+		const w = containerElement.clientWidth
+		const h = containerElement.clientHeight
+		for (const { el, point } of axisLabels) {
+			// column-major matrices: clip = projection * view * point
+			const eye = [0, 1, 2, 3].map(
+				(r) =>
+					v[r] * point[0] +
+					v[4 + r] * point[1] +
+					v[8 + r] * point[2] +
+					v[12 + r],
+			)
+			const clip = [0, 1, 2, 3].map(
+				(r) =>
+					p[r] * eye[0] +
+					p[4 + r] * eye[1] +
+					p[8 + r] * eye[2] +
+					p[12 + r] * eye[3],
+			)
+			if (clip[3] <= 0) {
+				el.style.display = 'none'
+				continue
+			}
+			const x = ((clip[0] / clip[3]) * 0.5 + 0.5) * w
+			const y = (1 - ((clip[1] / clip[3]) * 0.5 + 0.5)) * h
+			el.style.display = 'block'
+			el.style.transform = `translate(${x + 4}px, ${y - 8}px)`
+		}
+	}
+
 	const entities = entitiesFromSolids({}, model)
 
 	// assemble the options for rendering
@@ -146,6 +200,7 @@ export const renderModel = ({
 			perspectiveCamera.update(state.camera)
 
 			renderer(renderOptions)
+			updateAxisLabels()
 
 			// camera has settled
 			if (!updateView)
