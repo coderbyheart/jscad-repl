@@ -14,7 +14,7 @@ import {
 } from '@jscad/modeling/src/operations/transforms'
 import { cuboid, triangle } from '@jscad/modeling/src/primitives'
 import { degToRad } from '@jscad/modeling/src/utils'
-import { hexagonGrid } from '../utils/hexagon.js'
+import { hexagonGrid } from '../utils/hexagon.ts'
 
 const height = 2
 const len = 223

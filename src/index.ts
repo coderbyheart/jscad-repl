@@ -1,10 +1,10 @@
 import { measurements } from '@jscad/modeling'
 import { serialize } from '@jscad/stl-serializer'
-import { showerPlate } from './models/showerPlate.js'
-import { renderModel } from './renderModel.js'
+import { nordanWindowClip } from './models/nordanWindowClip.ts'
+import { renderModel } from './renderModel.ts'
 
-const modelName = 'showerPlate'
-const model = showerPlate()
+const modelName = 'nordanWindowClip'
+const model = nordanWindowClip()
 
 const containerElement = document.getElementById('jscad')
 const renderer =
