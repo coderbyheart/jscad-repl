@@ -16,3 +16,17 @@ div {
   margin: 0;
   padding: 0;
 }
+
+#toolbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+#toolbar button {
+  padding: 0.5rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}

@@ -192,4 +192,12 @@ export const renderModel = ({
 	containerElement.onpointerdown = downHandler
 	containerElement.onpointerup = upHandler
 	containerElement.onwheel = wheelHandler
+
+	return {
+		toggleGrid: (): boolean => {
+			gridOptions.visuals.show = !gridOptions.visuals.show
+			updateView = true
+			return gridOptions.visuals.show
+		},
+	}
 }

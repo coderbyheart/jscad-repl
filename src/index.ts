@@ -2,14 +2,18 @@ import { serialize } from '@jscad/stl-serializer'
 import { showerPlate } from './models/showerPlate.js'
 import { renderModel } from './renderModel.js'
 
-const containerElement = document.getElementById('jscad')
-
+const modelName = 'showerPlate'
 const model = showerPlate()
 
-if (containerElement !== null) renderModel({ containerElement, model })
+const containerElement = document.getElementById('jscad')
+const renderer =
+	containerElement !== null
+		? renderModel({ containerElement, model })
+		: undefined
 
-const download = async (blob: Blob) => {
-	const file = new File([await blob.arrayBuffer()], `model.stl`)
+const download = (solids: unknown, fileName: string) => {
+	const rawData = serialize({ binary: true }, solids)
+	const file = new File(rawData, fileName, { type: 'model/stl' })
 	const link = document.createElement('a')
 	link.style.display = 'none'
 	link.href = URL.createObjectURL(file)
@@ -20,12 +24,34 @@ const download = async (blob: Blob) => {
 
 	setTimeout(() => {
 		URL.revokeObjectURL(link.href)
-		link.parentNode?.removeChild(link)
+		link.remove()
 	}, 0)
 }
 
-;(window as any).startDownload = () => {
-	const rawData = serialize({ binary: true }, model)
-	const blob = new Blob(rawData)
-	download(blob).catch(console.error)
+const addButton = (
+	parent: HTMLElement,
+	label: string,
+	onClick: () => void,
+): void => {
+	const button = document.createElement('button')
+	button.type = 'button'
+	button.textContent = label
+	button.addEventListener('click', onClick)
+	parent.appendChild(button)
+}
+
+const toolbar = document.getElementById('toolbar')
+if (toolbar !== null) {
+	const parts = Array.isArray(model) ? model : [model]
+	addButton(toolbar, 'Download STL', () => download(model, `${modelName}.stl`))
+	if (renderer !== undefined) {
+		addButton(toolbar, 'Toggle grid', renderer.toggleGrid)
+	}
+	if (parts.length > 1) {
+		parts.forEach((part, i) =>
+			addButton(toolbar, `Part ${i + 1}`, () =>
+				download(part, `${modelName}-${i + 1}.stl`),
+			),
+		)
+	}
 }
