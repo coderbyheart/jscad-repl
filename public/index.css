@@ -30,3 +30,9 @@ div {
   font: inherit;
   cursor: pointer;
 }
+
+#toolbar .dimensions {
+  align-self: center;
+  font-family: sans-serif;
+  white-space: nowrap;
+}

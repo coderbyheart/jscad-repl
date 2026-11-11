@@ -1,3 +1,4 @@
+import { measurements } from '@jscad/modeling'
 import { serialize } from '@jscad/stl-serializer'
 import { showerPlate } from './models/showerPlate.js'
 import { renderModel } from './renderModel.js'
@@ -43,6 +44,15 @@ const addButton = (
 const toolbar = document.getElementById('toolbar')
 if (toolbar !== null) {
 	const parts = Array.isArray(model) ? model : [model]
+	const [min, max] = measurements.measureAggregateBoundingBox(...parts)
+	const dimensions = document.createElement('span')
+	dimensions.className = 'dimensions'
+	// JSCAD units are mm
+	dimensions.textContent = `${[0, 1, 2]
+		.map((i) => ((max[i] - min[i]) / 10).toFixed(1))
+		.join(' × ')} cm`
+	dimensions.title = 'Bounding box (X × Y × Z)'
+	toolbar.appendChild(dimensions)
 	addButton(toolbar, 'Download STL', () => download(model, `${modelName}.stl`))
 	if (renderer !== undefined) {
 		addButton(toolbar, 'Toggle grid', renderer.toggleGrid)
