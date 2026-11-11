@@ -6,10 +6,26 @@ import { renderModel } from './renderModel.ts'
 const modelName = 'nordanWindowClip'
 const model = nordanWindowClip()
 
+const showGridKey = 'showGrid'
+const loadShowGrid = (): boolean => {
+	try {
+		return localStorage.getItem(showGridKey) !== 'false'
+	} catch {
+		return true
+	}
+}
+const saveShowGrid = (show: boolean): void => {
+	try {
+		localStorage.setItem(showGridKey, String(show))
+	} catch {
+		// Storage unavailable (e.g. private mode), ignore
+	}
+}
+
 const containerElement = document.getElementById('jscad')
 const renderer =
 	containerElement !== null
-		? renderModel({ containerElement, model })
+		? renderModel({ containerElement, model, showGrid: loadShowGrid() })
 		: undefined
 
 const download = (solids: unknown, fileName: string) => {
@@ -55,7 +71,7 @@ if (toolbar !== null) {
 	toolbar.appendChild(dimensions)
 	addButton(toolbar, 'Download STL', () => download(model, `${modelName}.stl`))
 	if (renderer !== undefined) {
-		addButton(toolbar, 'Toggle grid', renderer.toggleGrid)
+		addButton(toolbar, 'Toggle grid', () => saveShowGrid(renderer.toggleGrid()))
 	}
 	if (parts.length > 1) {
 		parts.forEach((part, i) =>

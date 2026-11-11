@@ -15,9 +15,11 @@ const orbitControls = controls.orbit
 export const renderModel = ({
 	containerElement,
 	model,
+	showGrid = true,
 }: {
 	containerElement: HTMLElement
 	model: any
+	showGrid?: boolean
 }) => {
 	const width = containerElement.clientWidth
 	const height = containerElement.clientHeight
@@ -45,7 +47,7 @@ export const renderModel = ({
 	const gridOptions = {
 		visuals: {
 			drawCmd: 'drawGrid',
-			show: true,
+			show: showGrid,
 		},
 		size: [500, 500],
 		ticks: [10, 1],
