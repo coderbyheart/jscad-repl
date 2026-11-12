@@ -14,14 +14,16 @@ const modelNameFromLocation = (): string => {
 	const path = pathname.startsWith(base)
 		? pathname.slice(base.length)
 		: pathname.replace(/^\/+/, '')
+	let name: string
 	try {
-		return decodeURIComponent(path)
-			.replace(/\.html$/, '')
-			.replace(/\/+$/, '')
+		name = decodeURIComponent(path)
 	} catch {
 		// Malformed escape sequence
-		return path
+		name = path
 	}
+	name = name.replace(/\.html$/, '').replace(/\/+$/, '')
+	// /jscad-repl/index.html is the home page
+	return name === 'index' ? '' : name
 }
 
 const showGridKey = 'showGrid'
