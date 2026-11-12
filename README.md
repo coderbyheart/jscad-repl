@@ -29,3 +29,10 @@ that version rather than the one installed in CI.
 ## Running
 
     npm start
+
+Every model in `src/models/` is available under its file name, e.g.
+`src/models/nordanWindowClip.ts` is served on
+<http://localhost:8080/nordanWindowClip> (and on
+<https://coderbyheart.github.io/jscad-repl/nordanWindowClip>). The file must
+export a function with the same name that takes no required arguments. The root
+page lists all models.

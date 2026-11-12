@@ -1,7 +1,7 @@
 import fs from 'fs'
 import Handlebars from 'handlebars'
 import path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 
 const {
 	version,
@@ -31,6 +31,24 @@ const replaceInIndex = (data: Record<string, string>) => ({
 	},
 })
 
+// Emit a copy of index.html for every model, so that e.g.
+// src/models/nordanWindowClip.ts is served on /nordanWindowClip (GitHub Pages
+// resolves /foo to foo.html). 404.html catches everything else.
+const modelPages = (): Plugin => ({
+	name: 'model-pages',
+	apply: 'build',
+	writeBundle: ({ dir }) => {
+		if (dir === undefined) return
+		const index = fs.readFileSync(path.join(dir, 'index.html'), 'utf-8')
+		const models = fs
+			.readdirSync(path.join(process.cwd(), 'src', 'models'))
+			.filter((file) => file.endsWith('.ts'))
+			.map((file) => file.replace(/\.ts$/, ''))
+		for (const name of [...models, '404'])
+			fs.writeFileSync(path.join(dir, `${name}.html`), index)
+	},
+})
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
@@ -40,6 +58,7 @@ export default defineConfig({
 			themeColor: theme_color,
 			version,
 		}),
+		modelPages(),
 	],
 	base: `${(process.env.BASE_URL ?? '').replace(/\/+$/, '')}/`,
 	preview: {

@@ -36,3 +36,17 @@ div {
   font-family: sans-serif;
   white-space: nowrap;
 }
+
+.model-list {
+  font-family: sans-serif;
+  padding: 1rem;
+}
+
+.model-list ul {
+  columns: 16rem;
+  padding-left: 1.25rem;
+}
+
+.model-list li {
+  margin: 0.25rem 0;
+}
