@@ -7,14 +7,22 @@ const base = import.meta.env.BASE_URL
 const modelUrl = (name: string): string => `${base}${name}`
 
 // /jscad-repl/nordanWindowClip → nordanWindowClip
-const modelNameFromLocation = (): string =>
-	decodeURIComponent(
-		window.location.pathname.startsWith(base)
-			? window.location.pathname.slice(base.length)
-			: window.location.pathname.replace(/^\/+/, ''),
-	)
-		.replace(/\.html$/, '')
-		.replace(/\/+$/, '')
+const modelNameFromLocation = (): string => {
+	const { pathname } = window.location
+	// /jscad-repl (base without its trailing slash) is the home page
+	if (`${pathname}/` === base) return ''
+	const path = pathname.startsWith(base)
+		? pathname.slice(base.length)
+		: pathname.replace(/^\/+/, '')
+	try {
+		return decodeURIComponent(path)
+			.replace(/\.html$/, '')
+			.replace(/\/+$/, '')
+	} catch {
+		// Malformed escape sequence
+		return path
+	}
+}
 
 const showGridKey = 'showGrid'
 const loadShowGrid = (): boolean => {
@@ -156,10 +164,26 @@ const showModelList = async (message?: string): Promise<void> => {
 const main = async (): Promise<void> => {
 	const modelName = modelNameFromLocation()
 	if (modelName === '') return showModelList()
-	const model = await loadModel(modelName)
+	let model
+	try {
+		model = await loadModel(modelName)
+	} catch (error) {
+		console.error(error)
+		return showModelList(`Model "${modelName}" failed to load: ${error}`)
+	}
 	if (model === undefined)
 		return showModelList(`Model "${modelName}" not found.`)
-	showModel(modelName, model())
+	let geometry
+	try {
+		geometry = model()
+	} catch (error) {
+		console.error(error)
+		return showModelList(`Model "${modelName}" failed to build: ${error}`)
+	}
+	showModel(modelName, geometry)
 }
 
-void main()
+main().catch((error) => {
+	console.error(error)
+	document.body.textContent = `Failed to start: ${error}`
+})

@@ -20,11 +20,12 @@ export const loadModel = async (name: string): Promise<Model | undefined> => {
 	return fn as Model
 }
 
+// A module that fails to import is left out instead of breaking the list
 export const listModels = async (): Promise<string[]> =>
-	(
-		await Promise.all(
-			candidates.map(async (name) =>
-				(await loadModel(name)) !== undefined ? name : undefined,
-			),
-		)
-	).filter((name): name is string => name !== undefined)
+	(await Promise.allSettled(candidates.map(loadModel))).flatMap((result, i) => {
+		if (result.status === 'rejected') {
+			console.error(`Failed to load model ${candidates[i]}`, result.reason)
+			return []
+		}
+		return result.value !== undefined ? [candidates[i]] : []
+	})
