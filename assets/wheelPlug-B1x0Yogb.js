@@ -1,0 +1,1 @@
+import{t as e}from"./index-BBhyPsu0.js";import{n as t}from"./transforms-Dnxdku-6.js";var n=e(),r=t(),{cylinder:i}=n.primitives,a=(e=25)=>(0,r.subtract)(i({height:e,radius:9,segments:16}),i({height:e,radius:4.9,segments:64}));export{a as wheelPlug};
