@@ -5,7 +5,7 @@
 [![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
 [![Mergify Status](https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/coderbyheart/jscad-repl)](https://mergify.io)
 [![@commitlint/config-conventional](https://img.shields.io/badge/%40commitlint-config--conventional-brightgreen)](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier/)
+[![code style: oxfmt](https://img.shields.io/badge/code_style-oxfmt-ff69b4.svg)](https://oxc.rs/docs/guide/usage/formatter.html)
 [![React](https://github.com/aleen42/badges/raw/master/src/react.svg)](https://reactjs.org/)
 [![Bootstrap 5](https://img.shields.io/badge/Bootstrap-5-ffffff?labelColor=7952b3)](https://getbootstrap.com/docs/5.0/)
 [![CSS modules](https://img.shields.io/badge/CSS-modules-yellow)](https://github.com/css-modules/css-modules)
