@@ -1,18 +1,16 @@
-import fs from 'fs'
-import Handlebars from 'handlebars'
-import path from 'path'
-import { defineConfig, type Plugin } from 'vite'
+import fs from "fs"
+import Handlebars from "handlebars"
+import path from "path"
+import { defineConfig, type Plugin } from "vite"
 
 const {
-	version,
-	homepage,
-	bugs: { url: issuesUrl },
-} = JSON.parse(
-	fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'),
-)
+  version,
+  homepage,
+  bugs: { url: issuesUrl },
+} = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf-8"))
 
 const { short_name, name, theme_color, background_color } = JSON.parse(
-	fs.readFileSync(path.join(process.cwd(), 'public', 'manifest.json'), 'utf-8'),
+  fs.readFileSync(path.join(process.cwd(), "public", "manifest.json"), "utf-8"),
 )
 
 process.env.PUBLIC_VERSION = process.env.PUBLIC_VERSION ?? version ?? Date.now()
@@ -24,53 +22,52 @@ process.env.PUBLIC_MANIFEST_THEME_COLOR = theme_color
 process.env.PUBLIC_MANIFEST_BACKGROUND_COLOR = background_color
 
 const replaceInIndex = (data: Record<string, string>) => ({
-	name: 'replace-in-index',
-	transformIndexHtml: (source: string): string => {
-		const template = Handlebars.compile(source)
-		return template(data)
-	},
+  name: "replace-in-index",
+  transformIndexHtml: (source: string): string => {
+    const template = Handlebars.compile(source)
+    return template(data)
+  },
 })
 
 // Emit a copy of index.html for every model, so that e.g.
 // src/models/nordanWindowClip.ts is served on /nordanWindowClip (GitHub Pages
 // resolves /foo to foo.html). 404.html catches everything else.
 const modelPages = (): Plugin => ({
-	name: 'model-pages',
-	apply: 'build',
-	writeBundle: ({ dir }) => {
-		if (dir === undefined) return
-		const index = fs.readFileSync(path.join(dir, 'index.html'), 'utf-8')
-		const models = fs
-			.readdirSync(path.join(process.cwd(), 'src', 'models'))
-			.filter((file) => file.endsWith('.ts'))
-			.map((file) => file.replace(/\.ts$/, ''))
-		for (const name of [...models, '404'])
-			fs.writeFileSync(path.join(dir, `${name}.html`), index)
-	},
+  name: "model-pages",
+  apply: "build",
+  writeBundle: ({ dir }) => {
+    if (dir === undefined) return
+    const index = fs.readFileSync(path.join(dir, "index.html"), "utf-8")
+    const models = fs
+      .readdirSync(path.join(process.cwd(), "src", "models"))
+      .filter((file) => file.endsWith(".ts"))
+      .map((file) => file.replace(/\.ts$/, ""))
+    for (const name of [...models, "404"]) fs.writeFileSync(path.join(dir, `${name}.html`), index)
+  },
 })
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		replaceInIndex({
-			name,
-			shortName: short_name,
-			themeColor: theme_color,
-			version,
-		}),
-		modelPages(),
-	],
-	base: `${(process.env.BASE_URL ?? '').replace(/\/+$/, '')}/`,
-	preview: {
-		host: 'localhost',
-		port: 8080,
-	},
-	server: {
-		host: 'localhost',
-		port: 8080,
-	},
-	build: {
-		outDir: './build',
-	},
-	envPrefix: 'PUBLIC_',
+  plugins: [
+    replaceInIndex({
+      name,
+      shortName: short_name,
+      themeColor: theme_color,
+      version,
+    }),
+    modelPages(),
+  ],
+  base: `${(process.env.BASE_URL ?? "").replace(/\/+$/, "")}/`,
+  preview: {
+    host: "localhost",
+    port: 8080,
+  },
+  server: {
+    host: "localhost",
+    port: 8080,
+  },
+  build: {
+    outDir: "./build",
+  },
+  envPrefix: "PUBLIC_",
 })

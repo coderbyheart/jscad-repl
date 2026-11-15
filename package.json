@@ -2,6 +2,21 @@
   "name": "@coderbyheart/jscad-repl",
   "version": "0.0.0-development",
   "description": "Develop 3D models in VS Code using JSCAD.",
+  "keywords": [
+    "JSCAD",
+    "vite",
+    "web-app"
+  ],
+  "homepage": "https://github.com/coderbyheart/jscad-repl#readme",
+  "bugs": {
+    "url": "https://github.com/coderbyheart/jscad-repl/issues"
+  },
+  "license": "MIT",
+  "author": "Markus Tacker <m@coderbyheart.com> | https://coderbyheart.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coderbyheart/jscad-repl.git"
+  },
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -9,21 +24,6 @@
     "preview": "vite preview",
     "prepare": "husky && case \"$npm_command\" in install|ci) check-node-version --package ;; esac"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/coderbyheart/jscad-repl.git"
-  },
-  "bugs": {
-    "url": "https://github.com/coderbyheart/jscad-repl/issues"
-  },
-  "homepage": "https://github.com/coderbyheart/jscad-repl#readme",
-  "keywords": [
-    "web-app",
-    "vite",
-    "JSCAD"
-  ],
-  "author": "Markus Tacker <m@coderbyheart.com> | https://coderbyheart.com",
-  "license": "MIT",
   "dependencies": {
     "@commitlint/config-conventional": "21.2.4",
     "@jscad/core": "2.6.15",
@@ -35,27 +35,22 @@
     "react-router-dom": "7.18.5"
   },
   "devDependencies": {
-    "@bifravst/prettier-config": "^2.0.6",
     "@types/node": "26.6.6",
     "check-node-version": "4.2.1",
     "commitlint": "21.2.4",
     "handlebars": "4.7.10",
     "husky": "9.1.7",
-    "prettier": "3.10.1",
+    "oxfmt": "0.78.0",
     "typescript": "7.0.2",
     "vite": "8.3.8"
   },
   "lint-staged": {
     "*.ts": [
-      "prettier --write"
+      "oxfmt --write"
     ],
     "*.{md,json,yaml,yml,html}": [
-      "prettier --write"
+      "oxfmt --write"
     ]
-  },
-  "engines": {
-    "node": ">=26 <27",
-    "npm": ">=12.0.2 <13"
   },
   "release": {
     "branches": [
@@ -68,5 +63,8 @@
       "@semantic-release/github"
     ]
   },
-  "prettier": "@bifravst/prettier-config"
+  "engines": {
+    "node": ">=26 <27",
+    "npm": ">=12.0.2 <13"
+  }
 }
