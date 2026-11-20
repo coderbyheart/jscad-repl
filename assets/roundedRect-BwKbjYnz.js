@@ -1,0 +1,1 @@
+import{t as e}from"./index-BBhyPsu0.js";var t=e(),{cylinder:n}=t.primitives,{translate:r}=t.transforms,{hull:i}=t.hulls,a=({width:e,height:t,thickness:a,borderRadius:o})=>{let s=()=>n({radius:o,height:a,segments:64});return r([-t/2,-e/2,a/2],i([r([o,o,0],s()),r([o,e-o,0],s()),r([t-o,o,0],s()),r([t-o,e-o,0],s())]))};export{a as roundedRect};
