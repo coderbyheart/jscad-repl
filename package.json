@@ -40,7 +40,7 @@
     "commitlint": "21.2.4",
     "handlebars": "4.7.10",
     "husky": "9.1.7",
-    "oxfmt": "0.79.0",
+    "oxfmt": "0.80.0",
     "typescript": "7.0.2",
     "vite": "8.3.8"
   },
