@@ -1,0 +1,52 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#jscad {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+}
+
+#toolbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+#toolbar button {
+  padding: 0.5rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+#toolbar .dimensions {
+  align-self: center;
+  font-family: sans-serif;
+  white-space: nowrap;
+}
+
+.model-list {
+  font-family: sans-serif;
+  padding: 1rem;
+}
+
+.model-list ul {
+  columns: 16rem;
+  padding-left: 1.25rem;
+}
+
+.model-list li {
+  margin: 0.25rem 0;
+}
